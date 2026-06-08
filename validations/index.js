@@ -5,3 +5,4 @@ export {
   forgotPasswordSchema,
 } from "./auth";
 export { categorySchema } from "./categories";
+export { blogSchema } from "./blogs";

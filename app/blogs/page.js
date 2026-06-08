@@ -1,12 +1,10 @@
-import { PlaceholderPage } from "@/components/layout/PlaceholderPage";
+import { BlogsList } from "@/components/blogs";
 
-export const metadata = { title: "Blogs | Intelligence CRM" };
+export const metadata = {
+  title: "Blogs | Intelligence CRM",
+  description: "Manage and publish blog content",
+};
 
 export default function BlogsPage() {
-  return (
-    <PlaceholderPage
-      title="Blogs"
-      description="Manage and publish blog posts from this section."
-    />
-  );
+  return <BlogsList />;
 }

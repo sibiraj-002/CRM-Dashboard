@@ -5,3 +5,11 @@ export {
   updateCategory,
   deleteCategory,
 } from "./categoryService";
+
+export {
+  createBlog,
+  getBlogs,
+  getBlogById,
+  updateBlog,
+  deleteBlog,
+} from "./blogService";
