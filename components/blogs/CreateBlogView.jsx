@@ -34,7 +34,6 @@ export function CreateBlogView() {
         try {
             await createBlog({
                 ...data,
-                categoryId: "", // Will be added in future updates
                 authorId: user.uid,
             });
             toast.success("Blog created successfully");
@@ -49,7 +48,7 @@ export function CreateBlogView() {
 
     return (
         <DashboardLayout title="Create Blog">
-            <div className="mx-auto w-full max-w-2xl space-y-6">
+            <div className="mx-auto w-full max-w-6xl space-y-6">
                 <Button
                     asChild
                     variant="ghost"

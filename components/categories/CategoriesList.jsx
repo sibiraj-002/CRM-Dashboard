@@ -49,18 +49,23 @@ export function CategoriesList() {
   const router = useRouter();
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const fetchCategories = useCallback(async () => {
     setIsLoading(true);
+    setErrorMessage("");
 
     try {
       const data = await getCategories();
       setCategories(data);
     } catch (error) {
-      toast.error(error.message || "Failed to load categories");
+      const message = error.message || "Failed to load categories";
+      setCategories([]);
+      setErrorMessage(message);
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }
@@ -112,14 +117,14 @@ export function CategoriesList() {
               Categories
             </h2>
             <p className="text-sm text-muted-foreground">
-              Organize your content with categories and taxonomy rules.
+              Manage content categories.
             </p>
           </div>
 
           <Button asChild>
             <Link href="/categories/create">
               <Plus />
-              Create Category
+              Add Category
             </Link>
           </Button>
         </div>
@@ -150,6 +155,16 @@ export function CategoriesList() {
                 <Loader2 className="h-4 w-4 animate-spin" />
                 Loading categories...
               </div>
+            ) : errorMessage ? (
+              <div className="rounded-lg border border-dashed py-12 text-center">
+                <p className="text-sm font-medium">Failed to load categories</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {errorMessage}
+                </p>
+                <Button className="mt-4" variant="outline" onClick={fetchCategories}>
+                  Try again
+                </Button>
+              </div>
             ) : filteredCategories.length === 0 ? (
               <div className="rounded-lg border border-dashed py-12 text-center">
                 <p className="text-sm font-medium">No categories found</p>
@@ -162,7 +177,7 @@ export function CategoriesList() {
                   <Button asChild className="mt-4" variant="outline">
                     <Link href="/categories/create">
                       <Plus />
-                      Create Category
+                      Add Category
                     </Link>
                   </Button>
                 ) : null}
@@ -173,7 +188,7 @@ export function CategoriesList() {
                   <TableRow>
                     <TableHead>Name</TableHead>
                     <TableHead>Slug</TableHead>
-                    <TableHead>Created</TableHead>
+                    <TableHead>Created Date</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>

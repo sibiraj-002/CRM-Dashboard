@@ -1,12 +1,10 @@
-import { PlaceholderPage } from "@/components/layout/PlaceholderPage";
+import { NewsList } from "@/components/news";
 
-export const metadata = { title: "News | Intelligence CRM" };
+export const metadata = {
+  title: "News | Intelligence CRM",
+  description: "Publish and organize news updates and announcements",
+};
 
 export default function NewsPage() {
-  return (
-    <PlaceholderPage
-      title="News"
-      description="Publish and organize news updates and announcements."
-    />
-  );
+  return <NewsList />;
 }

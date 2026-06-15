@@ -44,10 +44,18 @@ function mapBlogDoc(snapshot) {
         id: snapshot.id,
         title: data.title,
         slug: data.slug,
+        metaTitle: data.metaTitle,
+        metaDescription: data.metaDescription,
         excerpt: data.excerpt,
         content: data.content,
         categoryId: data.categoryId,
         status: data.status,
+        publishDate: data.publishDate,
+        publishTime: data.publishTime,
+        scheduleDate: data.scheduleDate,
+        scheduleTime: data.scheduleTime,
+        author: data.author,
+        media: data.media,
         authorId: data.authorId,
         createdAt: data.createdAt?.toDate?.() ?? null,
         updatedAt: data.updatedAt?.toDate?.() ?? null,
@@ -57,10 +65,18 @@ function mapBlogDoc(snapshot) {
 export async function createBlog({
     title,
     slug,
+    metaTitle,
+    metaDescription,
     excerpt,
     content,
     categoryId,
     status,
+    publishDate,
+    publishTime,
+    scheduleDate,
+    scheduleTime,
+    author,
+    media,
     authorId,
 }) {
     const operationName = "createBlog";
@@ -72,10 +88,18 @@ export async function createBlog({
         const blogData = {
             title: title.trim(),
             slug: (slug?.trim() || generateSlug(title)).toLowerCase(),
+            metaTitle: metaTitle?.trim() || "",
+            metaDescription: metaDescription?.trim() || "",
             excerpt: excerpt.trim(),
             content: content.trim(),
             categoryId,
             status: status || "draft",
+            publishDate: publishDate || "",
+            publishTime: publishTime || "",
+            scheduleDate: scheduleDate || "",
+            scheduleTime: scheduleTime || "",
+            author: author?.trim() || "",
+            media: media || {},
             authorId,
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp(),
@@ -164,7 +188,25 @@ export async function getBlogById(id) {
     }
 }
 
-export async function updateBlog(id, { title, slug, excerpt, content, categoryId, status }) {
+export async function updateBlog(
+    id,
+    {
+        title,
+        slug,
+        metaTitle,
+        metaDescription,
+        excerpt,
+        content,
+        categoryId,
+        status,
+        publishDate,
+        publishTime,
+        scheduleDate,
+        scheduleTime,
+        author,
+        media,
+    },
+) {
     const operationName = "updateBlog";
     console.log(`[${operationName}] Starting blog update for ID:`, id);
     console.log(`[${operationName}] Current user:`, auth.currentUser?.uid || "None");
@@ -182,6 +224,14 @@ export async function updateBlog(id, { title, slug, excerpt, content, categoryId
             updateData.slug = generateSlug(title).toLowerCase();
         }
 
+        if (metaTitle !== undefined) {
+            updateData.metaTitle = metaTitle.trim();
+        }
+
+        if (metaDescription !== undefined) {
+            updateData.metaDescription = metaDescription.trim();
+        }
+
         if (excerpt !== undefined) {
             updateData.excerpt = excerpt.trim();
         }
@@ -196,6 +246,30 @@ export async function updateBlog(id, { title, slug, excerpt, content, categoryId
 
         if (status !== undefined) {
             updateData.status = status;
+        }
+
+        if (publishDate !== undefined) {
+            updateData.publishDate = publishDate;
+        }
+
+        if (publishTime !== undefined) {
+            updateData.publishTime = publishTime;
+        }
+
+        if (scheduleDate !== undefined) {
+            updateData.scheduleDate = scheduleDate;
+        }
+
+        if (scheduleTime !== undefined) {
+            updateData.scheduleTime = scheduleTime;
+        }
+
+        if (author !== undefined) {
+            updateData.author = author.trim();
+        }
+
+        if (media !== undefined) {
+            updateData.media = media || {};
         }
 
         updateData.updatedAt = serverTimestamp();

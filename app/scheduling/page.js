@@ -1,12 +1,10 @@
-import { PlaceholderPage } from "@/components/layout/PlaceholderPage";
+import { SchedulingList } from "@/components/scheduling";
 
-export const metadata = { title: "Scheduling | Intelligence CRM" };
+export const metadata = {
+  title: "Scheduling | Intelligence CRM",
+  description: "Schedule content publishing across channels",
+};
 
 export default function SchedulingPage() {
-  return (
-    <PlaceholderPage
-      title="Scheduling"
-      description="Schedule content publishing across channels."
-    />
-  );
+  return <SchedulingList />;
 }

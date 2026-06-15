@@ -65,7 +65,7 @@ export function EditCategoryView({ categoryId }) {
 
   return (
     <DashboardLayout title="Edit Category">
-      <div className="mx-auto w-full max-w-2xl space-y-6">
+      <div className="mx-auto w-full max-w-6xl space-y-6">
         <Button asChild variant="ghost" className="gap-2 px-0 hover:bg-transparent">
           <Link href="/categories">
             <ArrowLeft className="h-4 w-4" />

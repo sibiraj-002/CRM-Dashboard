@@ -1,12 +1,10 @@
-import { PlaceholderPage } from "@/components/layout/PlaceholderPage";
+import { MediaLibraryView } from "@/components/media";
 
-export const metadata = { title: "Media Library | Intelligence CRM" };
+export const metadata = {
+  title: "Media Library | Intelligence CRM",
+  description: "Browse and manage images, videos, and other media assets",
+};
 
 export default function MediaLibraryPage() {
-  return (
-    <PlaceholderPage
-      title="Media Library"
-      description="Browse and manage images, videos, and other media assets."
-    />
-  );
+  return <MediaLibraryView />;
 }
